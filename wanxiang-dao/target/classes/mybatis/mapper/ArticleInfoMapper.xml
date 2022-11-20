@@ -1,0 +1,546 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.huahai.wanxiang.dao.mapper.ArticleInfoMapper">
+  <resultMap id="BaseResultMap" type="com.huahai.wanxiang.dao.domain.ArticleInfoDO">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="article_name" jdbcType="VARCHAR" property="articleName" />
+    <result column="category" jdbcType="VARCHAR" property="category" />
+    <result column="article_source_url" jdbcType="VARCHAR" property="articleSourceUrl" />
+    <result column="source_company" jdbcType="VARCHAR" property="sourceCompany" />
+    <result column="cover_video" jdbcType="VARCHAR" property="coverVideo" />
+    <result column="shopee_id" jdbcType="VARCHAR" property="shopeeId" />
+    <result column="weight" jdbcType="DECIMAL" property="weight" />
+    <result column="original_price" jdbcType="DECIMAL" property="originalPrice" />
+    <result column="article_status" jdbcType="VARCHAR" property="articleStatus" />
+    <result column="normal_stock" jdbcType="INTEGER" property="normalStock" />
+    <result column="article_condition" jdbcType="VARCHAR" property="articleCondition" />
+    <result column="article_dangerous" jdbcType="INTEGER" property="articleDangerous" />
+    <result column="tenant_id" jdbcType="BIGINT" property="tenantId" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.huahai.wanxiang.dao.domain.ArticleInfoDO">
+    <result column="article_desc" jdbcType="LONGVARCHAR" property="articleDesc" />
+    <result column="article_photo" jdbcType="LONGVARCHAR" property="articlePhoto" />
+    <result column="dimension" jdbcType="LONGVARCHAR" property="dimension" />
+    <result column="logistic_info" jdbcType="LONGVARCHAR" property="logisticInfo" />
+    <result column="pre_order" jdbcType="LONGVARCHAR" property="preOrder" />
+    <result column="wholesale" jdbcType="LONGVARCHAR" property="wholesale" />
+    <result column="tax_info" jdbcType="LONGVARCHAR" property="taxInfo" />
+    <result column="complaint_policy" jdbcType="LONGVARCHAR" property="complaintPolicy" />
+    <result column="attribute_list" jdbcType="LONGVARCHAR" property="attributeList" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, article_name, category, article_source_url, source_company, cover_video, shopee_id, 
+    weight, original_price, article_status, normal_stock, article_condition, article_dangerous, 
+    tenant_id
+  </sql>
+  <sql id="Blob_Column_List">
+    article_desc, article_photo, dimension, logistic_info, pre_order, wholesale, tax_info, 
+    complaint_policy, attribute_list
+  </sql>
+  <select id="selectByExampleWithBLOBs" parameterType="com.huahai.wanxiang.dao.domain.ArticleInfoDOExample" resultMap="ResultMapWithBLOBs">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from article_info
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" parameterType="com.huahai.wanxiang.dao.domain.ArticleInfoDOExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from article_info
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from article_info
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from article_info
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.huahai.wanxiang.dao.domain.ArticleInfoDO">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      select LAST_INSERT_ID()
+    </selectKey>
+    insert into article_info (article_name, category, article_source_url, 
+      source_company, cover_video, shopee_id, 
+      weight, original_price, article_status, 
+      normal_stock, article_condition, article_dangerous, 
+      tenant_id, article_desc, article_photo, 
+      dimension, logistic_info, pre_order, 
+      wholesale, tax_info, complaint_policy, 
+      attribute_list)
+    values (#{articleName,jdbcType=VARCHAR}, #{category,jdbcType=VARCHAR}, #{articleSourceUrl,jdbcType=VARCHAR}, 
+      #{sourceCompany,jdbcType=VARCHAR}, #{coverVideo,jdbcType=VARCHAR}, #{shopeeId,jdbcType=VARCHAR}, 
+      #{weight,jdbcType=DECIMAL}, #{originalPrice,jdbcType=DECIMAL}, #{articleStatus,jdbcType=VARCHAR}, 
+      #{normalStock,jdbcType=INTEGER}, #{articleCondition,jdbcType=VARCHAR}, #{articleDangerous,jdbcType=INTEGER}, 
+      #{tenantId,jdbcType=BIGINT}, #{articleDesc,jdbcType=LONGVARCHAR}, #{articlePhoto,jdbcType=LONGVARCHAR}, 
+      #{dimension,jdbcType=LONGVARCHAR}, #{logisticInfo,jdbcType=LONGVARCHAR}, #{preOrder,jdbcType=LONGVARCHAR}, 
+      #{wholesale,jdbcType=LONGVARCHAR}, #{taxInfo,jdbcType=LONGVARCHAR}, #{complaintPolicy,jdbcType=LONGVARCHAR}, 
+      #{attributeList,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.huahai.wanxiang.dao.domain.ArticleInfoDO">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      select LAST_INSERT_ID()
+    </selectKey>
+    insert into article_info
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="articleName != null">
+        article_name,
+      </if>
+      <if test="category != null">
+        category,
+      </if>
+      <if test="articleSourceUrl != null">
+        article_source_url,
+      </if>
+      <if test="sourceCompany != null">
+        source_company,
+      </if>
+      <if test="coverVideo != null">
+        cover_video,
+      </if>
+      <if test="shopeeId != null">
+        shopee_id,
+      </if>
+      <if test="weight != null">
+        weight,
+      </if>
+      <if test="originalPrice != null">
+        original_price,
+      </if>
+      <if test="articleStatus != null">
+        article_status,
+      </if>
+      <if test="normalStock != null">
+        normal_stock,
+      </if>
+      <if test="articleCondition != null">
+        article_condition,
+      </if>
+      <if test="articleDangerous != null">
+        article_dangerous,
+      </if>
+      <if test="tenantId != null">
+        tenant_id,
+      </if>
+      <if test="articleDesc != null">
+        article_desc,
+      </if>
+      <if test="articlePhoto != null">
+        article_photo,
+      </if>
+      <if test="dimension != null">
+        dimension,
+      </if>
+      <if test="logisticInfo != null">
+        logistic_info,
+      </if>
+      <if test="preOrder != null">
+        pre_order,
+      </if>
+      <if test="wholesale != null">
+        wholesale,
+      </if>
+      <if test="taxInfo != null">
+        tax_info,
+      </if>
+      <if test="complaintPolicy != null">
+        complaint_policy,
+      </if>
+      <if test="attributeList != null">
+        attribute_list,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="articleName != null">
+        #{articleName,jdbcType=VARCHAR},
+      </if>
+      <if test="category != null">
+        #{category,jdbcType=VARCHAR},
+      </if>
+      <if test="articleSourceUrl != null">
+        #{articleSourceUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="sourceCompany != null">
+        #{sourceCompany,jdbcType=VARCHAR},
+      </if>
+      <if test="coverVideo != null">
+        #{coverVideo,jdbcType=VARCHAR},
+      </if>
+      <if test="shopeeId != null">
+        #{shopeeId,jdbcType=VARCHAR},
+      </if>
+      <if test="weight != null">
+        #{weight,jdbcType=DECIMAL},
+      </if>
+      <if test="originalPrice != null">
+        #{originalPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="articleStatus != null">
+        #{articleStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="normalStock != null">
+        #{normalStock,jdbcType=INTEGER},
+      </if>
+      <if test="articleCondition != null">
+        #{articleCondition,jdbcType=VARCHAR},
+      </if>
+      <if test="articleDangerous != null">
+        #{articleDangerous,jdbcType=INTEGER},
+      </if>
+      <if test="tenantId != null">
+        #{tenantId,jdbcType=BIGINT},
+      </if>
+      <if test="articleDesc != null">
+        #{articleDesc,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="articlePhoto != null">
+        #{articlePhoto,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="dimension != null">
+        #{dimension,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="logisticInfo != null">
+        #{logisticInfo,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="preOrder != null">
+        #{preOrder,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="wholesale != null">
+        #{wholesale,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="taxInfo != null">
+        #{taxInfo,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="complaintPolicy != null">
+        #{complaintPolicy,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="attributeList != null">
+        #{attributeList,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByExampleSelective" parameterType="map">
+    update article_info
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.articleName != null">
+        article_name = #{record.articleName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.category != null">
+        category = #{record.category,jdbcType=VARCHAR},
+      </if>
+      <if test="record.articleSourceUrl != null">
+        article_source_url = #{record.articleSourceUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sourceCompany != null">
+        source_company = #{record.sourceCompany,jdbcType=VARCHAR},
+      </if>
+      <if test="record.coverVideo != null">
+        cover_video = #{record.coverVideo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.shopeeId != null">
+        shopee_id = #{record.shopeeId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.weight != null">
+        weight = #{record.weight,jdbcType=DECIMAL},
+      </if>
+      <if test="record.originalPrice != null">
+        original_price = #{record.originalPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="record.articleStatus != null">
+        article_status = #{record.articleStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="record.normalStock != null">
+        normal_stock = #{record.normalStock,jdbcType=INTEGER},
+      </if>
+      <if test="record.articleCondition != null">
+        article_condition = #{record.articleCondition,jdbcType=VARCHAR},
+      </if>
+      <if test="record.articleDangerous != null">
+        article_dangerous = #{record.articleDangerous,jdbcType=INTEGER},
+      </if>
+      <if test="record.tenantId != null">
+        tenant_id = #{record.tenantId,jdbcType=BIGINT},
+      </if>
+      <if test="record.articleDesc != null">
+        article_desc = #{record.articleDesc,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.articlePhoto != null">
+        article_photo = #{record.articlePhoto,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.dimension != null">
+        dimension = #{record.dimension,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.logisticInfo != null">
+        logistic_info = #{record.logisticInfo,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.preOrder != null">
+        pre_order = #{record.preOrder,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.wholesale != null">
+        wholesale = #{record.wholesale,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.taxInfo != null">
+        tax_info = #{record.taxInfo,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.complaintPolicy != null">
+        complaint_policy = #{record.complaintPolicy,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.attributeList != null">
+        attribute_list = #{record.attributeList,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map">
+    update article_info
+    set id = #{record.id,jdbcType=BIGINT},
+      article_name = #{record.articleName,jdbcType=VARCHAR},
+      category = #{record.category,jdbcType=VARCHAR},
+      article_source_url = #{record.articleSourceUrl,jdbcType=VARCHAR},
+      source_company = #{record.sourceCompany,jdbcType=VARCHAR},
+      cover_video = #{record.coverVideo,jdbcType=VARCHAR},
+      shopee_id = #{record.shopeeId,jdbcType=VARCHAR},
+      weight = #{record.weight,jdbcType=DECIMAL},
+      original_price = #{record.originalPrice,jdbcType=DECIMAL},
+      article_status = #{record.articleStatus,jdbcType=VARCHAR},
+      normal_stock = #{record.normalStock,jdbcType=INTEGER},
+      article_condition = #{record.articleCondition,jdbcType=VARCHAR},
+      article_dangerous = #{record.articleDangerous,jdbcType=INTEGER},
+      tenant_id = #{record.tenantId,jdbcType=BIGINT},
+      article_desc = #{record.articleDesc,jdbcType=LONGVARCHAR},
+      article_photo = #{record.articlePhoto,jdbcType=LONGVARCHAR},
+      dimension = #{record.dimension,jdbcType=LONGVARCHAR},
+      logistic_info = #{record.logisticInfo,jdbcType=LONGVARCHAR},
+      pre_order = #{record.preOrder,jdbcType=LONGVARCHAR},
+      wholesale = #{record.wholesale,jdbcType=LONGVARCHAR},
+      tax_info = #{record.taxInfo,jdbcType=LONGVARCHAR},
+      complaint_policy = #{record.complaintPolicy,jdbcType=LONGVARCHAR},
+      attribute_list = #{record.attributeList,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update article_info
+    set id = #{record.id,jdbcType=BIGINT},
+      article_name = #{record.articleName,jdbcType=VARCHAR},
+      category = #{record.category,jdbcType=VARCHAR},
+      article_source_url = #{record.articleSourceUrl,jdbcType=VARCHAR},
+      source_company = #{record.sourceCompany,jdbcType=VARCHAR},
+      cover_video = #{record.coverVideo,jdbcType=VARCHAR},
+      shopee_id = #{record.shopeeId,jdbcType=VARCHAR},
+      weight = #{record.weight,jdbcType=DECIMAL},
+      original_price = #{record.originalPrice,jdbcType=DECIMAL},
+      article_status = #{record.articleStatus,jdbcType=VARCHAR},
+      normal_stock = #{record.normalStock,jdbcType=INTEGER},
+      article_condition = #{record.articleCondition,jdbcType=VARCHAR},
+      article_dangerous = #{record.articleDangerous,jdbcType=INTEGER},
+      tenant_id = #{record.tenantId,jdbcType=BIGINT}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.huahai.wanxiang.dao.domain.ArticleInfoDO">
+    update article_info
+    <set>
+      <if test="articleName != null">
+        article_name = #{articleName,jdbcType=VARCHAR},
+      </if>
+      <if test="category != null">
+        category = #{category,jdbcType=VARCHAR},
+      </if>
+      <if test="articleSourceUrl != null">
+        article_source_url = #{articleSourceUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="sourceCompany != null">
+        source_company = #{sourceCompany,jdbcType=VARCHAR},
+      </if>
+      <if test="coverVideo != null">
+        cover_video = #{coverVideo,jdbcType=VARCHAR},
+      </if>
+      <if test="shopeeId != null">
+        shopee_id = #{shopeeId,jdbcType=VARCHAR},
+      </if>
+      <if test="weight != null">
+        weight = #{weight,jdbcType=DECIMAL},
+      </if>
+      <if test="originalPrice != null">
+        original_price = #{originalPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="articleStatus != null">
+        article_status = #{articleStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="normalStock != null">
+        normal_stock = #{normalStock,jdbcType=INTEGER},
+      </if>
+      <if test="articleCondition != null">
+        article_condition = #{articleCondition,jdbcType=VARCHAR},
+      </if>
+      <if test="articleDangerous != null">
+        article_dangerous = #{articleDangerous,jdbcType=INTEGER},
+      </if>
+      <if test="tenantId != null">
+        tenant_id = #{tenantId,jdbcType=BIGINT},
+      </if>
+      <if test="articleDesc != null">
+        article_desc = #{articleDesc,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="articlePhoto != null">
+        article_photo = #{articlePhoto,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="dimension != null">
+        dimension = #{dimension,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="logisticInfo != null">
+        logistic_info = #{logisticInfo,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="preOrder != null">
+        pre_order = #{preOrder,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="wholesale != null">
+        wholesale = #{wholesale,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="taxInfo != null">
+        tax_info = #{taxInfo,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="complaintPolicy != null">
+        complaint_policy = #{complaintPolicy,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="attributeList != null">
+        attribute_list = #{attributeList,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.huahai.wanxiang.dao.domain.ArticleInfoDO">
+    update article_info
+    set article_name = #{articleName,jdbcType=VARCHAR},
+      category = #{category,jdbcType=VARCHAR},
+      article_source_url = #{articleSourceUrl,jdbcType=VARCHAR},
+      source_company = #{sourceCompany,jdbcType=VARCHAR},
+      cover_video = #{coverVideo,jdbcType=VARCHAR},
+      shopee_id = #{shopeeId,jdbcType=VARCHAR},
+      weight = #{weight,jdbcType=DECIMAL},
+      original_price = #{originalPrice,jdbcType=DECIMAL},
+      article_status = #{articleStatus,jdbcType=VARCHAR},
+      normal_stock = #{normalStock,jdbcType=INTEGER},
+      article_condition = #{articleCondition,jdbcType=VARCHAR},
+      article_dangerous = #{articleDangerous,jdbcType=INTEGER},
+      tenant_id = #{tenantId,jdbcType=BIGINT},
+      article_desc = #{articleDesc,jdbcType=LONGVARCHAR},
+      article_photo = #{articlePhoto,jdbcType=LONGVARCHAR},
+      dimension = #{dimension,jdbcType=LONGVARCHAR},
+      logistic_info = #{logisticInfo,jdbcType=LONGVARCHAR},
+      pre_order = #{preOrder,jdbcType=LONGVARCHAR},
+      wholesale = #{wholesale,jdbcType=LONGVARCHAR},
+      tax_info = #{taxInfo,jdbcType=LONGVARCHAR},
+      complaint_policy = #{complaintPolicy,jdbcType=LONGVARCHAR},
+      attribute_list = #{attributeList,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.huahai.wanxiang.dao.domain.ArticleInfoDO">
+    update article_info
+    set article_name = #{articleName,jdbcType=VARCHAR},
+      category = #{category,jdbcType=VARCHAR},
+      article_source_url = #{articleSourceUrl,jdbcType=VARCHAR},
+      source_company = #{sourceCompany,jdbcType=VARCHAR},
+      cover_video = #{coverVideo,jdbcType=VARCHAR},
+      shopee_id = #{shopeeId,jdbcType=VARCHAR},
+      weight = #{weight,jdbcType=DECIMAL},
+      original_price = #{originalPrice,jdbcType=DECIMAL},
+      article_status = #{articleStatus,jdbcType=VARCHAR},
+      normal_stock = #{normalStock,jdbcType=INTEGER},
+      article_condition = #{articleCondition,jdbcType=VARCHAR},
+      article_dangerous = #{articleDangerous,jdbcType=INTEGER},
+      tenant_id = #{tenantId,jdbcType=BIGINT}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

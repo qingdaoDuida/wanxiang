@@ -1,0 +1,4 @@
+com/huahai/wanxiang/dao/plugin/WanXiangPlugin.class
+com/huahai/wanxiang/dao/plugin/SelectByExampleFieldFilterPlugin.class
+com/huahai/wanxiang/dao/util/SqlSecurityUtils.class
+com/huahai/wanxiang/dao/plugin/PluginUtils.class

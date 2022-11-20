@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+<generatorConfiguration>
+    <context id="welfare_mysql_tables" targetRuntime="MyBatis3" defaultModelType="flat">
+        <plugin type="org.mybatis.generator.plugins.ToStringPlugin"/>
+        <plugin type="com.huahai.wanxiang.dao.plugin.WanXiangPlugin"/>
+        <plugin type="com.huahai.wanxiang.dao.plugin.SelectByExampleFieldFilterPlugin">
+            <property name="securitySqlClass" value="com.huahai.wanxiang.dao.util.SqlSecurityUtils"/>
+        </plugin>
+        <commentGenerator>
+            <property name="suppressAllComments" value="true"/>
+            <property name="suppressDate" value="true"/>
+        </commentGenerator>
+        
+        <jdbcConnection
+                driverClass="com.mysql.cj.jdbc.Driver"
+                connectionURL="jdbc:mysql://rm-bp1u17q8n2bpeh8e8jo.mysql.rds.aliyuncs.com:3306/wanxiang?zeroDateTimeBehavior=convertToNull"
+                userId="huahai_db"
+                password="hfw_19890904">
+        </jdbcConnection>
+
+        <javaTypeResolver>
+            <property name="forceBigDecimals" value="false"/>
+        </javaTypeResolver>
+
+
+        <javaModelGenerator targetPackage="com.huahai.wanxiang.dao.domain" targetProject="src/main/java">
+            <property name="enableSubPackages" value="true"/>
+            <property name="trimStrings" value="true"/>
+        </javaModelGenerator>
+
+        <sqlMapGenerator targetPackage="mybatis.mapper" targetProject="src/main/resources">
+            <property name="enableSubPackages" value="true"/>
+        </sqlMapGenerator>
+
+        <javaClientGenerator type="XMLMAPPER" targetPackage="com.huahai.wanxiang.dao.mapper"
+                             targetProject="src/main/java">
+            <property name="enableSubPackages" value="true"/>
+        </javaClientGenerator>
+        <table tableName="user_info" domainObjectName="UserInfoDO" mapperName="UserInfoMapper"
+            enableCountByExample="trur" enableUpdateByExample="true"
+            enableDeleteByExample="false" enableSelectByExample="true"
+            selectByExampleQueryId="true" enableInsert="true"
+            enableSelectByPrimaryKey="true" enableUpdateByPrimaryKey="true">
+            <property name="userActualColumnNames" value="false"/>
+            <generatedKey column="id" sqlStatement="select LAST_INSERT_ID()" identity="true"/>
+        </table>
+<!--        <table tableName="tenant_info" domainObjectName="TenantInfoDO" mapperName="TenantInfoMapper"-->
+<!--               enableCountByExample="trur" enableUpdateByExample="true"-->
+<!--               enableDeleteByExample="false" enableSelectByExample="true"-->
+<!--               selectByExampleQueryId="true" enableInsert="true"-->
+<!--               enableSelectByPrimaryKey="true" enableUpdateByPrimaryKey="true">-->
+<!--            <property name="userActualColumnNames" value="false"/>-->
+<!--            <generatedKey column="id" sqlStatement="select LAST_INSERT_ID()" identity="true"/>-->
+<!--        </table>-->
+
+<!--        <table tableName="tenant_member" domainObjectName="TenantMemberDO" mapperName="TenantMemberMapper"-->
+<!--               enableCountByExample="trur" enableUpdateByExample="true"-->
+<!--               enableDeleteByExample="false" enableSelectByExample="true"-->
+<!--               selectByExampleQueryId="true" enableInsert="true"-->
+<!--               enableSelectByPrimaryKey="true" enableUpdateByPrimaryKey="true">-->
+<!--            <property name="userActualColumnNames" value="false"/>-->
+<!--            <generatedKey column="id" sqlStatement="select LAST_INSERT_ID()" identity="true"/>-->
+<!--            <columnOverride column="deleted" javaType="Boolean"/>-->
+<!--        </table>-->
+
+<!--        <table tableName="article_info" domainObjectName="ArticleInfoDO" mapperName="ArticleInfoMapper"-->
+<!--               enableCountByExample="trur" enableUpdateByExample="true"-->
+<!--               enableDeleteByExample="false" enableSelectByExample="true"-->
+<!--               selectByExampleQueryId="true" enableInsert="true"-->
+<!--               enableSelectByPrimaryKey="true" enableUpdateByPrimaryKey="true">-->
+<!--            <property name="userActualColumnNames" value="false"/>-->
+<!--            <generatedKey column="id" sqlStatement="select LAST_INSERT_ID()" identity="true"/>-->
+<!--            <columnOverride column="deleted" javaType="Boolean"/>-->
+<!--        </table>-->
+    </context>
+</generatorConfiguration>
